@@ -4,23 +4,35 @@ import { UpdateImtDto } from './dto/update-imt.dto.js';
 
 @Injectable()
 export class ImtService {
-  create(createImtDto: CreateImtDto) {
-    return 'This action adds a new imt';
-  }
+  
 
-  findAll() {
-    return `This action returns all imt`;
-  }
+  async createImt(createImtDto: CreateImtDto) {
+    const calculateImt = createImtDto.weight / (createImtDto.height * createImtDto.height);
+    
 
-  findOne(id: number) {
-    return `This action returns a #${id} imt`;
-  }
+    const statusImt = (imt: number) => {
+      if (imt < 18.5) {
+        return 'Underweight';
+      } else if (imt >= 18.5 && imt < 25) {
+        return 'Normal weight';
+      } else if (imt >= 25 && imt < 30) {
+        return 'Overweight';
+      } else {
+        return 'Obesity';
+      } 
 
-  update(id: number, updateImtDto: UpdateImtDto) {
-    return `This action updates a #${id} imt`;
-  }
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} imt`;
+    const imt = {
+      value: calculateImt.toFixed(2),
+      status: statusImt(calculateImt),
+    }
+
+    return {
+      message: 'IMT calculated successfully',
+      data: {
+        imt,
+      }
+    }
   }
 }

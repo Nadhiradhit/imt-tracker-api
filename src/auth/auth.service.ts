@@ -78,8 +78,14 @@ export class AuthService {
 
   // Logout logic to be implemented here.
   async logout(){
+    
+   const removeToken = await this.jwtService.signAsync({});
+
     return {
       message: 'User logged out successfully',
+      data: {
+        access_token: removeToken,
+      }
     }
   }
   
