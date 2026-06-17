@@ -19,6 +19,7 @@ export class AuthService {
 
   // Registration logic to be implemented here. For now, we will just create a user for testing purposes.
   async register(registerDto: registerDto) {
+    
     const existingEmail = await this.prisma.user.findUnique({
       where: { email: registerDto.email },
     })
@@ -44,7 +45,7 @@ export class AuthService {
         email: user.email,
         name: user.name,
       },
-      access_token: await this.jwtService.signAsync(user),
+      access_token: await this.jwtService.signAsync({ sub: user.id, email: user.email }),
     }
 
   }
@@ -72,7 +73,7 @@ export class AuthService {
         email: user.email,
         name: user.name,
       },
-      access_token: await this.jwtService.signAsync(user),
+      access_token: await this.jwtService.signAsync({ sub: user.id, email: user.email }),
     };
   }
 
