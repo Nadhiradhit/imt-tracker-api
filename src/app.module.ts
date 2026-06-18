@@ -6,9 +6,10 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { AuthController } from './auth/auth.controller.js';
 import { AuthService } from './auth/auth.service.js';
 import { ImtModule } from './imt/imt.module.js';
+import { ProfileModule } from './profile/profile.module.js';
 
 @Module({
-  imports: [AuthModule, PrismaModule, ImtModule],
+  imports: [AuthModule, PrismaModule, ImtModule, ProfileModule],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],
 })
