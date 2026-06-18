@@ -7,7 +7,6 @@ import { PrismaService } from '../prisma/prisma.service.js';
 export class ImtService {
   constructor(private readonly prisma: PrismaService) {}
   
-
   async createImt(createImtDto: CreateImtDto, userId: string) {
     
     const calculateImt = createImtDto.weight / (createImtDto.height * createImtDto.height);
